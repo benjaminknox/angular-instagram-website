@@ -27,7 +27,7 @@
     template: [
       '<div ng-repeat="column in ctrl.columns">', 
         '<a ng-repeat="post in column" href="{{ post.images.standard_resolution.url }}">',
-          '<img src="{{ post.images.low_resolution.url }}" alt="{{ post.caption.text }}" />',
+          '<img ng-src="{{ post.images.low_resolution.url }}" alt="{{ post.caption.text }}" />',
           '<h3>{{ post.caption.text }}</h3>',
         '</a>',
       '</div>'

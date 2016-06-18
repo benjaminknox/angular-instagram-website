@@ -2606,13 +2606,25 @@
 				width: 10em;
 			}
 
-		@media screen and (max-width: 1280px) {
-
-			#header {
-				padding: 4em 0 2em 0;
-			}
-
-		}
+	#header {
+		padding: 4em 2em 2em;
+		margin: 2em auto;
+	}
+	
+	#header,
+	#main,
+	#footer {
+		transition: all 1s;
+	}
+	
+	.top #header {
+		background: rgba(12, 24, 48, 0.5)
+	}
+	
+	.top #main,
+	.top #footer{
+		opacity: 0;
+	}
 
 /* Footer */
 
