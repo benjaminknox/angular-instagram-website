@@ -1,22 +1,9 @@
 (function(){
   'use strict';
   
-  var app = angular.module('bpk-instagram', []),
-      helpers = {
-        coerceData: function(dest, src) {
-          _.each(_.keys(dest), function(prop) {
-            delete dest[prop];
-          });
-
-          _.assign(dest, src);
-
-          return dest;
-        }
-      };
-
-  app.controller('DailyVerseController', DailyVerseController);
+  var app = angular.module('bpk-instagram', []);
+  
   app.controller('InstagramController', InstagramController);
-  app.provider('DailyVerse', DailyVerse);
   app.provider('InstagramPosts', InstagramPosts);
   app.component('thumbnails', {
     bindings: {
@@ -38,21 +25,6 @@
   });
   
   
-  DailyVerseController.$inject = ['DailyVerse'];
-  function DailyVerseController(DailyVerse) {
-    var vm = this;
-    
-    vm.verse = DailyVerse.verse;
-    
-    
-    activate();
-    
-    
-    function activate() {
-      DailyVerse.getVerse();
-    }
-  }
-  
   InstagramController.$inject = ['InstagramPosts'];
   function InstagramController(InstagramPosts) {
     var vm = this;
@@ -66,31 +38,6 @@
       InstagramPosts.load().then(function(posts) {
         vm.posts = posts;
       });
-    }
-  }
-
-  function DailyVerse() {
-    this.$get = $get;
-    
-    $get.$inject = ['$http', '$q', '$sce'];
-    function $get($http, $q, $sce) {
-      return {
-        verse: {},
-        getVerse: function() {
-          var deferred = $q.defer(),
-              self = this;
-          $http.jsonp('http://dailyverses.net/getdailyverse.ashx?language=nlt&callback=JSON_CALLBACK')
-            .then(function(response) {
-              helpers.coerceData(self.verse, response.data);
-              self.verse.html = $sce.trustAsHtml(self.verse.html);
-              deferred.resolve(self.verse);
-            })
-            .catch(function(response) {
-              deferred.reject(response);
-            });
-          return deferred.promise;
-        }
-      };
     }
   }
 
