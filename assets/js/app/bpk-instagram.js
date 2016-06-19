@@ -26,9 +26,11 @@
     controller: thumbnailsComponent,
     template: [
       '<div ng-repeat="column in ctrl.columns">', 
-        '<a ng-repeat="post in column" href="{{ post.images.standard_resolution.url }}">',
+        '<a ng-repeat="post in column"',
+           'target="_blank"',
+           'href="{{ post.images.standard_resolution.url }}">',
           '<img ng-src="{{ post.images.low_resolution.url }}" alt="{{ post.caption.text }}" />',
-          '<h3>{{ post.caption.text }}</h3>',
+          '<h3 ng-bind-html="post.caption.text"></h3>',
         '</a>',
       '</div>'
     ].join(' '),
@@ -130,12 +132,26 @@
     }
   }
 
-  thumbnailsComponent.$inject = ['InstagramPosts'];
-  function thumbnailsComponent(InstagramPosts) {
+  thumbnailsComponent.$inject = ['InstagramPosts', '$sce'];
+  function thumbnailsComponent(InstagramPosts, $sce) {
     var ctrl = this;
     
     ctrl.$onChanges = function(changes) {
       updateColumns(changes.posts.currentValue);
+    }
+    
+    function addHandle(post) {
+      post.caption.text = $sce.trustAsHtml(
+        post.caption.text
+          .replace(/@([\w\.]+)/g, [
+            '<a href="http://www.instagram.com/$1"',
+               'data-poptrox="ignore"',
+               'class="handle"',
+               'target="_blank">',
+              '@$1',
+            '</a>'
+          ].join(' '))
+      ); 
     }
     
     function updateColumns(posts) {
@@ -144,6 +160,8 @@
       
       ctrl.columns = [];
       _.each(posts, function(post, idx){
+        addHandle(post);
+        
         if(!ctrl.columns[column]) {
           ctrl.columns[column] = [];
         }

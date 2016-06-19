@@ -29,6 +29,10 @@ $(function() {
 
 	// Poptrox.
 		$window.on('load', function() {
+			
+			$('thumbnails a.handle').click(function(event){
+				event.stopPropagation();
+		});
 
 			$('thumbnails').poptrox({
 				onPopupClose: function() { $body.removeClass('is-covered'); },

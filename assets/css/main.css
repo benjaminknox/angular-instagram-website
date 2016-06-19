@@ -2405,6 +2405,11 @@
 			outline: 0;
 			overflow: hidden;
 		}
+		
+			thumbnails a.handle {
+				display: inline;
+				padding: 0 2px 2px;
+			}
 
 			thumbnails a img {
 				display: block;
