@@ -12,8 +12,9 @@
     controllerAs: 'ctrl',
     controller: thumbnailsComponent,
     template: [
-      '<div ng-repeat="column in ctrl.columns">', 
+      '<div ng-repeat="(index, column) in ctrl.columns" id="column-{{ index }}">', 
         '<a ng-repeat="post in column"',
+           'repeat-end="ctrl.initPoptrox(index);"',
            'target="_blank"',
            'href="{{ post.images.standard_resolution.url }}">',
           '<img ng-src="{{ post.images.low_resolution.url }}" alt="{{ post.caption.text }}" />',
@@ -79,14 +80,16 @@
     }
   }
 
-  thumbnailsComponent.$inject = ['InstagramPosts', '$sce'];
-  function thumbnailsComponent(InstagramPosts, $sce) {
+  thumbnailsComponent.$inject = ['InstagramPosts', '$sce', '$scope'];
+  function thumbnailsComponent(InstagramPosts, $sce, $scope) {
     var ctrl = this;
+    
+    ctrl.initPoptrox = initPoptrox;
     
     ctrl.$onChanges = function(changes) {
       updateColumns(changes.posts.currentValue);
     }
-    
+
     function addHandle(post) {
       post.caption.text = $sce.trustAsHtml(
         post.caption.text
@@ -99,6 +102,12 @@
             '</a>'
           ].join(' '))
       ); 
+    }
+    
+    function initPoptrox(column) {
+      $scope.$evalAsync(function() {
+        $(window).trigger('thumbnails-loaded', column);
+      });
     }
     
     function updateColumns(posts) {

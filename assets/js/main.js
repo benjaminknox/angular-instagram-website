@@ -28,13 +28,14 @@ $(function() {
 		});
 
 	// Poptrox.
-		$window.on('load', function() {
+		$window.on('thumbnails-loaded', function(event, column) {
+			var column = $('#column-' + column);
 			
-			$('thumbnails a.handle').click(function(event){
+			column.find('a.handle').click(function(event){
 				event.stopPropagation();
-		});
+			});
 
-			$('thumbnails').poptrox({
+			column.poptrox({
 				onPopupClose: function() { $body.removeClass('is-covered'); },
 				onPopupOpen: function() { $body.addClass('is-covered'); },
 				baseZIndex: 10001,

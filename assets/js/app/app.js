@@ -3,6 +3,7 @@
 
   angular.module('bpk-knox-pro',[
     'bpk-instagram',
-    'bpk-bible'
+    'bpk-bible',
+    'bpk-common'
   ]);
 })();
