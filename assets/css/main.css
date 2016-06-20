@@ -1175,7 +1175,7 @@
 
 	}
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 665px) {
 
 		.row > * {
 			padding: 0 0 0 2em;
@@ -1400,19 +1400,38 @@
 		-ms-overflow-style: scrollbar;
 	}
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 665px) {
 
 		html, body {
 			min-width: 320px;
 		}
 
 	}
+	
+	body > * {
+	  position: relative;
+	  z-index: 2;
+	}
+	
+	body > .fader {
+	  background: #2e80cc;
+	  display: block;
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  z-index: 1;
+	}
 
 	body {
-		background-color: #000;
-		background-image: url("../../images/bg.jpg");
-		background-size: cover;
-		background-position: top center;
+      width: 100%;	
+	  position: relative;
+	  float: left;
+	  background-color: #000;
+	  background-image: url("../../images/bg.jpg");
+	  background-size: cover;
+	  background-position: top center;
 	}
 
 		body.is-loading *:not(.loader .block), body.is-loading *:before, body.is-loading *:after {
@@ -2080,7 +2099,7 @@
 						padding: 0 0 0 0.5em;
 					}
 
-			@media screen and (max-width: 480px) {
+			@media screen and (max-width: 665px) {
 
 				ul.actions {
 					margin: 0 0 2em 0;
@@ -2361,7 +2380,7 @@
 			opacity: 0.25;
 		}
 
-		@media screen and (max-width: 480px) {
+		@media screen and (max-width: 665px) {
 
 			input[type="submit"],
 			input[type="reset"],
@@ -2468,7 +2487,7 @@
 
 		}
 
-		@media screen and (max-width: 480px) {
+		@media screen and (max-width: 665px) {
 
 			thumbnails {
 				display: block;
@@ -2595,13 +2614,19 @@
 		padding: 4em 0 4em 0;
 	}
 
+		.articles-before,
 		#footer:before {
-			content: '';
-			border-top: solid 1px rgba(255, 255, 255, 0.25);
-			width: 10em;
-			display: block;
-			margin: 0 auto 3em auto;
+		  content: '';
+		  border-top: solid 1px rgba(255, 255, 255, 0.25);
+		  width: 10em;
+		  display: block;
+		  margin: 0 auto 3em auto;
 		}
+		
+		.articles-before {
+		  margin-top: 60px;
+		}
+
 
 		@media screen and (max-width: 1280px) {
 

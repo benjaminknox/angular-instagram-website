@@ -18,7 +18,7 @@
            'target="_blank"',
            'href="{{ post.images.standard_resolution.url }}">',
           '<img ng-src="{{ post.images.low_resolution.url }}" alt="{{ post.caption.text }}" />',
-          '<h3 ng-bind-html="post.caption.text"></h3>',
+          '<h3 ng-bind-html="post.caption.textHtml"></h3>',
         '</a>',
       '</div>'
     ].join(' '),
@@ -91,16 +91,18 @@
     }
 
     function addHandle(post) {
-      post.caption.text = $sce.trustAsHtml(
-        post.caption.text
-          .replace(/@([\w\.]+)/g, [
-            '<a href="http://www.instagram.com/$1"',
-               'class="handle"',
-               'target="_blank">',
-              '@$1',
-            '</a>'
-          ].join(' '))
-      ); 
+      if(!post.caption.textHtml) {
+        post.caption.textHtml = $sce.trustAsHtml(
+          post.caption.text
+            .replace(/@([\w\.]+)/g, [
+              '<a href="http://www.instagram.com/$1"',
+                 'class="handle"',
+                 'target="_blank">',
+                '@$1',
+              '</a>'
+            ].join(' '))
+        ); 
+      }
     }
     
     function initInstagramPopup(column) {

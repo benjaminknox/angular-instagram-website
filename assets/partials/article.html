@@ -1,0 +1,19 @@
+<a class="round-button back"  href="/">
+  <i class="fa fa-arrow-left"></i>
+</a>
+<article>
+    <header>
+      <span>{{vm.article.title}}</span>
+      <time>{{ vm.article.created_date | amDateFormat: 'MMM Do, YYYY h:mm a' }}</time>
+    </header>
+    <p ng-bind-html="vm.articleHtml"></p>
+    <footer>
+      <div class="author">
+        <img ng-src="{{vm.article.author_avatar}}" />
+        By {{ vm.article.author }}
+      </div>
+      <div class="close-article">
+        <a href="/">Close</a>
+      </div>
+    </footer>
+</article>

@@ -1,17 +1,20 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+	  <base href="/">
 		<title>What's Up - Benjamin Knox</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/vendor/fancybox/jquery.fancybox.css" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="assets/css/loader.css" />
+		<link rel="stylesheet" href="assets/css/card.css" />
+		<link rel="stylesheet" href="assets/css/article.css" />
     <link rel="icon" href="images/favicon.png?v=1" />
 	</head>
 	<body ng-app="bpk-knox-pro" class="is-loading">
     
-    <div class="loader">
+    <div class="loader" ng-controller="LoadingController">
       <div class="block"></div>
       <div class="block"></div>
       <div class="block"></div>
@@ -30,81 +33,31 @@
       <div class="block"></div>
     </div>
     
-		<!-- Wrapper -->
-			<div id="wrapper">
-
-				<!-- Header -->
-					<header id="header">
-						<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
-						<article ng-controller="DailyVerseController as vm" ng-bind-html="vm.verse.html"></article>
-						<ul class="icons">
-							<li>
-                <a href="https://twitter.com/benjamin_knox7"
-                   class="icon style2 fa-twitter"
-                   target="_blank">
-                  <span class="label">Twitter</span>
-                </a>
-              </li>
-							<li>
-                <a href="https://www.facebook.com/benjamin.knox.750"
-                   class="icon style2 fa-facebook"
-                   target="_blank">
-                  <span class="label">Facebook</span>
-                </a>
-              </li>
-							<li>
-                <a href="https://www.instagram.com/benjamin.knox7"
-                   class="icon style2 fa-instagram"
-                   target="_blank">
-                  <span class="label">Instagram</span>
-                </a>
-              </li>
-							<li>
-                <a href="https://www.linkedin.com/in/benjaminknox1"
-                   class="icon style2 fa-linkedin"
-                   target="_blank">
-                  <span class="label">linkedIn</span>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:bknox.contact@gmail.com" class="icon style2 fa-envelope-o">
-                  <span class="label">Email</span>
-                </a>
-              </li>
-						</ul>
-					</header>
-
-				<!-- Main -->
-					<section id="main" ng-controller="InstagramController as vm">
-
-						<!-- Thumbnails -->
-            <thumbnails posts="vm.posts"></thumbnails>
-
-					</section>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<p>
-              &copy; Benjamin P Knox.&nbsp;&nbsp;All rights reserved.
-              &nbsp;&nbsp;<a href="http://templated.co">Design</a>.
-            </p>
-					</footer>
-
-			</div>
-
+		<!-- Wrapper : App-->
+		<div id="wrapper" ng-view></div>
+			
 		<!-- Scripts -->
     <script src="assets/js/vendor/jquery.min.js"></script>
     <script src="assets/js/vendor/skel.min.js"></script>
     <script src="assets/js/vendor/lodash.min.js"></script>
-    <script src="assets/js/vendor/angular.min.js"></script>
+    <script src="assets/js/vendor/moment-with-locales.min.js"></script>
     <script src="assets/vendor/fancybox/jquery.fancybox.pack.js"></script>
     <script src="assets/js/home.scroll.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <!-- Angular Deps -->
+    <script src="assets/js/vendor/angular.min.js"></script>
+    <script src="assets/js/vendor/angular-route.min.js"></script>
+    <script src="assets/js/vendor/angular-moment.min.js"></script>
     
     <!-- Angular App -->
     <script src="assets/js/app/directives/repeat-end.js"></script>
+    <script src="assets/js/app/bpk-home.js"></script>
     <script src="assets/js/app/bpk-instagram.js"></script>
+    <script src="assets/js/app/helpers.js"></script>
+    <script src="assets/js/app/bpk-articles.js"></script>
     <script src="assets/js/app/bpk-bible.js"></script>
+    <script src="assets/js/app/bpk-instagram.js"></script>
     <script src="assets/js/app/app.js"></script>
 	</body>
 </html>

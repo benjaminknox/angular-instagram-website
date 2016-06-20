@@ -1,0 +1,116 @@
+@import url(https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic);
+
+/*body {*/
+/*	-moz-transition: all 2s ease;*/
+/*	-webkit-transition: all 2s ease;*/
+/*	-ms-transition: all 2s ease;*/
+/*	transition: all 2s ease;*/
+/*}*/
+
+body.focus-on-articles {
+  background-image: none;
+}
+
+body.article {
+  background: #FFF;
+}
+
+  body.article * {
+    color: #000;
+  }
+  
+  body.article a.back {
+    position: fixed;
+    opacity: 0.7;
+    top: 10px;
+    left: 10px;
+  }
+  
+  body.article #wrapper {
+    padding: 0;
+  }
+  
+  body.article .block {
+    background: #000;
+  }
+  
+  body.article p {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    line-height: 2em;
+    width: 100%;
+  }
+  
+  body.article p,
+  body.article p * {
+    white-space: pre-wrap; 
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;  
+    white-space: -o-pre-wrap; 
+    word-wrap: break-word;
+  }
+  
+  body.article header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    align-items: baseline;
+    border-bottom: 1px dotted #999;
+  }
+  
+  body.article header time {
+    font-size: 16px;
+    font-weight: normal;
+  }
+  
+  body.article .author {
+    font-size: 16px;
+  }
+  
+  body.article .author {
+    display: flex;
+    align-items: center;
+  }
+  
+  body.article .author img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-right: 10px;
+  }
+  
+  body.article p {
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  body.article a {
+    color: #666666;
+    border-bottom: 1px #000 dotted;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  
+  body.article a:hover {
+    color: maroon;
+    border-bottom: 1px maroon dotted;
+  }
+  
+  body.article article footer {
+    border-top: 1px dotted #999;
+    align-items: center;
+    padding: 20px 2em 0;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+  body.article header,
+  body.article article footer {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }

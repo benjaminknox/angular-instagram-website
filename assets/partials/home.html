@@ -1,0 +1,63 @@
+				<!-- Header -->
+					<header id="header">
+						<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
+						<article ng-controller="DailyVerseController as vm" ng-bind-html="vm.verse.html"></article>
+						<ul class="icons">
+							<li>
+                <a href="https://twitter.com/benjamin_knox7"
+                   class="icon style2 fa-twitter"
+                   target="_blank">
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+							<li>
+                <a href="https://www.facebook.com/benjamin.knox.750"
+                   class="icon style2 fa-facebook"
+                   target="_blank">
+                  <span class="label">Facebook</span>
+                </a>
+              </li>
+							<li>
+                <a href="https://www.instagram.com/benjamin.knox7"
+                   class="icon style2 fa-instagram"
+                   target="_blank">
+                  <span class="label">Instagram</span>
+                </a>
+              </li>
+							<li>
+                <a href="https://www.linkedin.com/in/benjaminknox1"
+                   class="icon style2 fa-linkedin"
+                   target="_blank">
+                  <span class="label">linkedIn</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:bknox.contact@gmail.com" class="icon style2 fa-envelope-o">
+                  <span class="label">Email</span>
+                </a>
+              </li>
+						</ul>
+					</header>
+
+				<!-- Main -->
+					<section id="main" ng-controller="InstagramController as vm">
+						<!-- Thumbnails -->
+            <thumbnails posts="vm.posts"></thumbnails>
+					</section>
+      			
+      		<div class="articles-before"></div>	
+      		<div ng-controller="ArticlesController as vm" id="articles">
+      		  <article-card article="article"
+      		                ng-repeat="article in vm.articles"
+      		                repeat-end="vm.initCard();">
+      		  </article-card>
+      		</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p>
+              &copy; Benjamin P Knox.&nbsp;&nbsp;All rights reserved.
+              &nbsp;&nbsp;<a href="http://templated.co">Design</a>.
+            </p>
+					</footer>
+
