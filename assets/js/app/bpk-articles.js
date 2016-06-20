@@ -5,6 +5,16 @@
   
   app.controller('ArticlesController', ArticlesController);
   app.provider('Articles', Articles);
+  app.component('Article', {
+    bindings: {
+      article: '<'
+    },
+    controller: ArticleComponent,
+    controllerAs: 'ctrl',
+    template: [
+      '<div></div>'
+    ].join(' ')
+  });
   
   ArticlesController.$inject = ['Articles'];
   function ArticlesController(Articles) {

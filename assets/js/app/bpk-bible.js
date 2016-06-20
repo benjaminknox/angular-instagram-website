@@ -1,18 +1,7 @@
 (function(){
   'use strict';
   
-  var app = angular.module('bpk-bible', []),
-      helpers = {
-        coerceData: function(dest, src) {
-          _.each(_.keys(dest), function(prop) {
-            delete dest[prop];
-          });
-
-          _.assign(dest, src);
-
-          return dest;
-        }
-      };
+  var app = angular.module('bpk-bible', []);
 
   app.controller('DailyVerseController', DailyVerseController);
   app.provider('DailyVerse', DailyVerse);
