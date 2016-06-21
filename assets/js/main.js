@@ -24,7 +24,9 @@ $(function() {
 		$body.addClass('is-loading');
 
 		$window.on('load', function() {
-			$body.removeClass('is-loading');
+			var t = setTimeout(function() {
+				$body.removeClass('is-loading');
+			}, 1000);
 		});
 
 	// Poptrox.
