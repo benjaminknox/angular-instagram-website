@@ -105,9 +105,12 @@
     }
     
     function initPoptrox(column) {
-      $scope.$evalAsync(function() {
-        $(window).trigger('thumbnails-loaded', column);
-      });
+      // debugger
+      if(ctrl.columns.length === column + 1) {
+        $scope.$evalAsync(function() {
+          $(window).trigger('thumbnails-loaded', column);
+        });
+      }
     }
     
     function updateColumns(posts) {

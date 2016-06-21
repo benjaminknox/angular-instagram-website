@@ -33,24 +33,19 @@ $(function() {
 		$window.on('thumbnails-loaded', function(event, column) {
 			var column = $('#column-' + column);
 			
+			console.log(column);
+			
 			column.find('a.handle').click(function(event){
 				event.stopPropagation();
 			});
-
-			column.poptrox({
-				onPopupClose: function() { $body.removeClass('is-covered'); },
-				onPopupOpen: function() { $body.addClass('is-covered'); },
-				baseZIndex: 10001,
-				useBodyOverflow: false,
-				usePopupEasyClose: true,
-				overlayColor: '#000000',
-				overlayOpacity: 0.75,
-				popupLoaderText: '',
-				fadeSpeed: 500,
-				usePopupDefaultStyling: false,
-				windowMargin: (skel.breakpoint('small').active ? 5 : 50)
-			});
-
+			
+			$('thumbnails a').fancybox({
+          helpers: {
+              title : {
+                  type : 'float'
+              }
+          }
+      });
 		});
 
 });
