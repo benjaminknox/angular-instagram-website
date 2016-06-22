@@ -29,22 +29,20 @@ $(function() {
 			}, 1000);
 		});
 
-	// Poptrox.
+	// fancybox.
 		$window.on('thumbnails-loaded', function(event, column) {
 			var column = $('#column-' + column);
-			
-			console.log(column);
-			
-			column.find('a.handle').click(function(event){
+      
+			$('thumbnails a.handle').click(function(event){
 				event.stopPropagation();
 			});
 			
 			$('thumbnails a').fancybox({
-          helpers: {
-              title : {
-                  type : 'float'
-              }
+        helpers: {
+          title : {
+            type : 'float'
           }
+        }
       });
 		});
 

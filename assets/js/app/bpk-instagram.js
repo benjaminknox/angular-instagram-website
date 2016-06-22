@@ -14,7 +14,7 @@
     template: [
       '<div ng-repeat="(index, column) in ctrl.columns" id="column-{{ index }}">', 
         '<a ng-repeat="post in column"',
-           'repeat-end="ctrl.initPoptrox(index);"',
+           'repeat-end="ctrl.initInstagramPopup(index);"',
            'target="_blank"',
            'href="{{ post.images.standard_resolution.url }}">',
           '<img ng-src="{{ post.images.low_resolution.url }}" alt="{{ post.caption.text }}" />',
@@ -84,7 +84,7 @@
   function thumbnailsComponent(InstagramPosts, $sce, $scope) {
     var ctrl = this;
     
-    ctrl.initPoptrox = initPoptrox;
+    ctrl.initInstagramPopup = initInstagramPopup;
     
     ctrl.$onChanges = function(changes) {
       updateColumns(changes.posts.currentValue);
@@ -95,7 +95,6 @@
         post.caption.text
           .replace(/@([\w\.]+)/g, [
             '<a href="http://www.instagram.com/$1"',
-               'data-poptrox="ignore"',
                'class="handle"',
                'target="_blank">',
               '@$1',
@@ -104,7 +103,7 @@
       ); 
     }
     
-    function initPoptrox(column) {
+    function initInstagramPopup(column) {
       // debugger
       if(ctrl.columns.length === column + 1) {
         $scope.$evalAsync(function() {
