@@ -4,6 +4,7 @@
   var app = angular.module('bpk-articles', ['angularMoment']);
   
   app.controller('ArticlesController', ArticlesController);
+  app.controller('CategoriesController', CategoriesController);
   app.controller('ArticleController', ArticleController);
   app.provider('Articles', Articles);
   app.component('articleCard', {
@@ -34,6 +35,27 @@
     function initCard() {
       $scope.$evalAsync(function() {
         $(window).trigger('articles-loaded');
+      });
+    }
+  }
+  
+  CategoriesController.$inject = ['$scope', '$routeParams', 'Articles'];
+  function CategoriesController($scope, $routeParams, Articles) {
+    var vm = this;
+    
+    vm.articles = Articles.records;
+    
+    
+    activate();
+    
+    
+    function activate() {
+      Articles.listByCategory($routeParams.category);
+      
+      $('body').addClass('category-wrapper');
+      
+      $scope.$on("$destroy", function() {
+        $('body').removeClass('category-wrapper');
       });
     }
   }
@@ -70,7 +92,7 @@
         record: {},
         records: [],
         reset : function() {
-          helper.coerceData(this.record, {});
+          helpers.coerceData(this.record, {});
           this.records.length = 0;
           this.pageSize = 4;
         },
@@ -111,6 +133,21 @@
                 deferred.reject(response);
               });
           }
+          return deferred.promise;
+        },
+        listByCategory: function(category) {
+          var deferred = $q.defer(),
+              self = this;
+              
+          $http.get('http://knox.pro:5555/api/v1/articles/category/' + category)
+            .then(function(response) {
+              self.reset();
+              Array.prototype.push.apply(self.records, response.data);
+              deferred.resolve(self.records); 
+            })
+            .catch(function(response) {
+              deferred.reject(response);
+            });
           return deferred.promise;
         }
       };

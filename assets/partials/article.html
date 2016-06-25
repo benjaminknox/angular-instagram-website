@@ -1,5 +1,5 @@
 <a class="round-button back"  href="/">
-  <i class="fa fa-arrow-left"></i>
+  <i class="fa fa-home"></i>
 </a>
 <article>
     <header>
@@ -13,7 +13,9 @@
         By {{ vm.article.author }}
       </div>
       <div class="close-article">
-        <a href="/">Close</a>
+        <a ng-href="/article/category/{{ vm.article.category }}">
+          {{ vm.article.category }}
+        </a>
       </div>
     </footer>
 </article>

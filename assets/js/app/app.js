@@ -1,4 +1,4 @@
-(function(){
+(function() {
   'use strict';
   
   var app = angular.module('bpk-knox-pro',[
@@ -27,6 +27,12 @@
       controller: 'ArticleController',
       controllerAs: 'vm',
       templateUrl: 'assets/partials/article.html'
+    });
+    
+    $routeProvider.when('/article/category/:category',{
+      controller: 'CategoriesController',
+      controllerAs: 'vm',
+      templateUrl: 'assets/partials/category.html'
     });
   }
   

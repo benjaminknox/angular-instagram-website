@@ -1425,7 +1425,7 @@
 	}
 
 	body {
-      width: 100%;	
+    width: 100%;
 	  position: relative;
 	  float: left;
 	  background-color: #000;
@@ -1433,6 +1433,17 @@
 	  background-size: cover;
 	  background-position: top center;
 	}
+
+  a.back {
+    position: fixed;
+    opacity: 0.7;
+    top: 10px;
+    left: 10px;
+  }
+	  a.back,
+	  a.back:hover {
+	  	color: #000;
+	  }
 
 		body.is-loading *:not(.loader .block), body.is-loading *:before, body.is-loading *:after {
 			-moz-animation: none !important;

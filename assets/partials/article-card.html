@@ -13,7 +13,9 @@
 	      <a id="share" class="share-toggle share-icon" href="#"></a>
 	    </div>
 			<div class="card__meta">
-				<a href="#">{{ ctrl.article.category }}</a>
+				<a ng-href="/article/category/{{ ctrl.article.category }}">
+					{{ ctrl.article.category }}
+					</a>
 	      <time>{{ ctrl.article.created_date | amDateFormat: 'MMM Do, YYYY h:mm a' }}</time>
 			</div>
 			<article class="card__article">
