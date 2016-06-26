@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+
 .category {
   width: 90%;
   margin: 20px auto;
@@ -5,7 +7,34 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
   .category-wrapper {
     background: #ffb382;
   }
+  
+  .category-wrapper header,
+  .category-wrapper header .controls {
+    display: flex;
+    width: 100%;
+  }
+  
+  .category-wrapper header {
+    flex-direction: column;
+    margin: 20px auto;
+  }
+    .category-wrapper header h1{
+      font-family: 'Bree Serif', serif;
+      text-align: center;
+      font-size: 3em;
+    }
+
+    .category-wrapper header .controls {
+      justify-content: space-between;
+    }
+    
+    .category-wrapper header .controls .wrap-dd-select {
+      margin: 0;
+    }
+    
+    .category-wrapper header .controls .wrap-dd-select ul li {
+      padding-left: 0;
+    }

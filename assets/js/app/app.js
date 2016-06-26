@@ -29,7 +29,7 @@
       templateUrl: 'assets/partials/article.html'
     });
     
-    $routeProvider.when('/article/category/:category',{
+    $routeProvider.when('/articles/category/:category',{
       controller: 'CategoriesController',
       controllerAs: 'vm',
       templateUrl: 'assets/partials/category.html'

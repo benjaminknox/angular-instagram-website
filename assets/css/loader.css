@@ -33,3 +33,27 @@ body.is-loading .loader {
   50%  { top: 30px;  opacity: .2; }
   100% { top: 0;     opacity: 1; }
 }
+
+.load-more {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #286daf;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  transition: 0.4s all ease;
+}
+  .load-more:hover {
+    background: #2668a6;
+  }
+  
+  .load-more:active {
+    -webkit-transform: scale(0.99);
+    -moz-transform: scale(0.99);
+    -ms-transform: scale(0.99);
+    -o-transform: scale(0.99);
+    transform: scale(0.99);
+  }

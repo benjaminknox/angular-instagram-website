@@ -3,7 +3,7 @@
 </a>
 <article>
     <header>
-      <span>{{vm.article.title}}</span>
+      <span>{{ vm.article.title }}</span>
       <time>{{ vm.article.created_date | amDateFormat: 'MMM Do, YYYY h:mm a' }}</time>
     </header>
     <p ng-bind-html="vm.articleHtml"></p>
@@ -13,7 +13,7 @@
         By {{ vm.article.author }}
       </div>
       <div class="close-article">
-        <a ng-href="/article/category/{{ vm.article.category }}">
+        <a ng-href="/articles/category/{{ vm.article.category }}">
           {{ vm.article.category }}
         </a>
       </div>

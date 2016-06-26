@@ -1,8 +1,21 @@
 <a class="round-button back" href="/">
   <i class="fa fa-home"></i>
 </a>
-<div class="category">
+<section class="category">
+  <header>
+    <h1>Showing {{ vm.category }}</h1>
+    <div class="controls">
+      <div dropdown-select="vm.categories"
+           dropdown-model="vm.selectedCategory"
+           dropdown-onchange="vm.loadCategory(selected)">
+        show all articles
+      </div>
+      <span>
+        Total: <em>{{ vm.articles.totalCount }}</em>
+      </span>
+    </div>
+  </header>
   <article-card article="article"
                 ng-repeat="article in vm.articles">
   </article-card>
-</div>
+</section>

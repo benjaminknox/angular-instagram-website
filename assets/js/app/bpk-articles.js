@@ -1,7 +1,7 @@
 (function(){
   'use strict';
   
-  var app = angular.module('bpk-articles', ['angularMoment']);
+  var app = angular.module('bpk-articles', ['angularMoment', 'ngDropdowns']);
   
   app.controller('ArticlesController', ArticlesController);
   app.controller('CategoriesController', CategoriesController);
@@ -23,13 +23,17 @@
 
     vm.articles = Articles.records;
     vm.initCard = initCard;
+    vm.loadMore = loadMore;
+    vm.params = Articles.params;
 
 
     activate();
 
 
     function activate() {
-      Articles.load();
+      if(vm.params.page === 1) {
+        Articles.load(true);
+      }
     }
 
     function initCard() {
@@ -37,26 +41,59 @@
         $(window).trigger('articles-loaded');
       });
     }
+    
+    function loadMore() {
+      vm.params.page += 1;
+      Articles.load();
+    }
   }
   
-  CategoriesController.$inject = ['$scope', '$routeParams', 'Articles'];
-  function CategoriesController($scope, $routeParams, Articles) {
+  CategoriesController.$inject = ['$location', '$scope', '$routeParams', 'Articles'];
+  function CategoriesController($location, $scope, $routeParams, Articles) {
     var vm = this;
     
-    vm.articles = Articles.records;
+    vm.loadCategory = loadCategory;
     
-    
+    vm.articles = [];
+    vm.category = $routeParams.category;
+    vm.categories = [];
+    vm.selectedCategory = {
+      text: vm.category,
+      value: vm.category
+    };
+
+
     activate();
-    
-    
+
+
     function activate() {
-      Articles.listByCategory($routeParams.category);
+      Articles.listByCategory(vm.category)
+        .then(function(articles) {
+          vm.articles = articles;
+        });
+        
+      Articles.getCategories(vm.category).then(function(categories) {
+        vm.categories.length = 0;
+        Array.prototype.push.apply(
+          vm.categories, 
+          _.map(categories, function(category) {
+            return {
+              text: category,
+              value: category
+            }
+          })
+        );
+      });
       
       $('body').addClass('category-wrapper');
       
       $scope.$on("$destroy", function() {
         $('body').removeClass('category-wrapper');
       });
+    }
+    
+    function loadCategory(category) {
+      $location.path('/articles/category/' + category.text)
     }
   }
   
@@ -65,6 +102,7 @@
     var vm = this;
     
     vm.article = Articles.record;
+    
     
     activate();
     
@@ -91,26 +129,36 @@
         pageSize: 4,
         record: {},
         records: [],
-        reset : function() {
-          helpers.coerceData(this.record, {});
-          this.records.length = 0;
-          this.pageSize = 4;
+        categories: [],
+        params: {
+          pageSize: 4,
+          page: 1
         },
-        load: function() {
+        reset : function() {
+          this.records.length = 0;
+          helpers.coerceData(this.record, {});
+          helpers.coerceData(this.params, { pageSize: 4, page: 1 });
+        },
+        load: function(reset, params) {
           var deferred = $q.defer(),
               self = this;
               
-          $http.get('http://knox.pro:5555/api/v1/articles')
-            .then(function(response) {
-              // Hacked until I get paging working
-              self.records.length = 0;
-              response.data.length = self.pageSize;
-              Array.prototype.push.apply(self.records, response.data);
-              deferred.resolve(self.records);
-            })
-            .catch(function(response) {
-              deferred.reject(response);
-            });
+          if(reset) {
+            this.reset();
+          }
+              
+          $http({
+            method: 'GET',
+            url: 'http://knox.pro:5555/api/v1/articles', 
+            params: _.assign(this.params, params)
+          })
+          .then(function(response) {
+            Array.prototype.push.apply(self.records, response.data.records);
+            deferred.resolve(self.records);
+          })
+          .catch(function(response) {
+            deferred.reject(response);
+          });
 
           return deferred.promise;
         },
@@ -121,11 +169,11 @@
 
           if(record) {
             helpers.coerceData(self.record, record);
-            deferred.resolve(self.record); 
+            deferred.resolve(self.record);
           } else {
             $http.get('http://knox.pro:5555/api/v1/articles/' + id)
               .then(function(response) {
-                helpers.coerceData(self.record, response.data);
+                helpers.coerceData(self.record, response.data.record);
                 self.records.push(self.record);
                 deferred.resolve(self.record); 
               })
@@ -135,15 +183,31 @@
           }
           return deferred.promise;
         },
-        listByCategory: function(category) {
+        listByCategory: function(category, params) {
           var deferred = $q.defer(),
               self = this;
               
           $http.get('http://knox.pro:5555/api/v1/articles/category/' + category)
             .then(function(response) {
-              self.reset();
-              Array.prototype.push.apply(self.records, response.data);
-              deferred.resolve(self.records); 
+              // self.reset();
+              // Array.prototype.push.apply(self.records, response.data);
+              response.data.records.totalCount = response.data.count;
+
+              deferred.resolve(response.data.records); 
+            })
+            .catch(function(response) {
+              deferred.reject(response);
+            });
+          return deferred.promise;
+        },
+        getCategories: function() {
+          var deferred = $q.defer(),
+              self = this;
+              
+          $http.get('http://knox.pro:5555/api/v1/articles/categories/')
+            .then(function(response) {
+              Array.prototype.push.apply(self.categories, response.data.records);
+              deferred.resolve(self.categories); 
             })
             .catch(function(response) {
               deferred.reject(response);
@@ -163,13 +227,17 @@
     };
     
     function updateArticle(article) {
-      var introLength = article.body.indexOf('<!--more-->');
-      if(introLength !== -1) {
-        ctrl.intro = article.body.substr(0, introLength);
-      } else {
-        ctrl.intro = article.body;
+      var introLength;
+      
+      if(article.body) {
+        introLength = article.body.indexOf('<!--more-->');
+        if(introLength !== -1) {
+          ctrl.intro = article.body.substr(0, introLength);
+        } else {
+          ctrl.intro = article.body;
+        }
+        ctrl.intro = $sce.trustAsHtml(ctrl.intro);
       }
-      ctrl.intro = $sce.trustAsHtml(ctrl.intro);
     }
   }
 })();
