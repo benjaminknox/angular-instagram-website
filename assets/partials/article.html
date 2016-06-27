@@ -6,7 +6,7 @@
       <span>{{ vm.article.title }}</span>
       <time>{{ vm.article.created_date | amDateFormat: 'MMM Do, YYYY h:mm a' }}</time>
     </header>
-    <p ng-bind-html="vm.articleHtml"></p>
+    <p bind-html-compile="vm.articleHtml"></p>
     <footer>
       <div class="author">
         <img ng-src="{{vm.article.author_avatar}}" />

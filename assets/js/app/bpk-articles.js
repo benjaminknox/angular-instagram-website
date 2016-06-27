@@ -1,7 +1,12 @@
 (function(){
   'use strict';
   
-  var app = angular.module('bpk-articles', ['angularMoment', 'ngDropdowns']);
+  var app = angular.module('bpk-articles', [
+    'angularMoment',
+    'ngDropdowns',
+    'hljs',
+    'angular-bind-html-compile'
+  ]);
   
   app.controller('ArticlesController', ArticlesController);
   app.controller('CategoriesController', CategoriesController);
@@ -31,7 +36,7 @@
 
 
     function activate() {
-      if(vm.params.page === 1) {
+      if(vm.articles.length === 0) {
         Articles.load(true);
       }
     }
@@ -97,8 +102,8 @@
     }
   }
   
-  ArticleController.$inject = ['$scope', 'Articles', '$routeParams', '$sce'];
-  function ArticleController($scope, Articles, $routeParams, $sce) {
+  ArticleController.$inject = ['$scope', 'Articles', '$routeParams'];
+  function ArticleController($scope, Articles, $routeParams) {
     var vm = this;
     
     vm.article = Articles.record;
@@ -109,7 +114,7 @@
     
     function activate() {
       Articles.find($routeParams.id).then(function(){
-        vm.articleHtml = $sce.trustAsHtml(vm.article.body);
+        vm.articleHtml = vm.article.body;
       });
       
       $('body').addClass('article');
@@ -174,7 +179,6 @@
             $http.get('http://knox.pro:5555/api/v1/articles/' + id)
               .then(function(response) {
                 helpers.coerceData(self.record, response.data.record);
-                self.records.push(self.record);
                 deferred.resolve(self.record); 
               })
               .catch(function(response) {
@@ -206,6 +210,7 @@
               
           $http.get('http://knox.pro:5555/api/v1/articles/categories/')
             .then(function(response) {
+              self.categories.length = 0;
               Array.prototype.push.apply(self.categories, response.data.records);
               deferred.resolve(self.categories); 
             })

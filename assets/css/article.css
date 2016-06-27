@@ -32,6 +32,7 @@ body.article {
     font-size: 18px;
     line-height: 2em;
     width: 100%;
+    margin-bottom: 0;
   }
   
   body.article p,
@@ -73,7 +74,7 @@ body.article {
     margin-right: 10px;
   }
   
-  body.article p {
+  body.article article > p {
     width: 80%;
     margin: 20px auto;
   }
